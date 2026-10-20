@@ -1,0 +1,9 @@
+:root {
+	--button-background: #1f4b99;
+	--button-color: #fff;
+}
+
+body {
+	font-family: sans-serif;
+	margin: 0;
+}

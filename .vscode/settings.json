@@ -1,0 +1,17 @@
+{
+	// Oxc format/fix and Stylelint run as save code actions. `formatOnSave` would double-format.
+	"editor.codeActionsOnSave": {
+		"source.fixAll.stylelint": "always",
+		"source.format.oxc": "always",
+		"source.fixAll.oxc": "always"
+	},
+	"editor.defaultFormatter": "oxc.oxc-vscode",
+	"editor.formatOnSave": false,
+	// TypeScript 7 language service, using the workspace `typescript` package.
+	"js/ts.experimental.useTsgo": true,
+	"js/ts.tsdk.path": "./node_modules/typescript",
+	"stylelint.ignorePath": "${workspaceFolder}/.gitignore",
+	"stylelint.lintFiles.glob": "**/*.{css,css.ts}",
+	// Linaria `*.css.ts` files are TypeScript as far as the editor is concerned.
+	"stylelint.validate": ["css", "typescript"]
+}

@@ -1,0 +1,59 @@
+{
+	"name": "rpg-character-creator",
+	"private": true,
+	"workspaces": [
+		"apps/*",
+		"packages/*"
+	],
+	"type": "module",
+	"scripts": {
+		"install:browsers": "cross-env PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium firefox",
+		"dev:dashboard": "vp -C apps/dashboard dev",
+		"dev:example": "vp -C apps/example dev",
+		"dev:ui": "npm run storybook -w packages/ui",
+		"prod:build": "vp run build-site",
+		"prod:preview": "vp preview --outDir site",
+		"prod:publish": "npm run prod:build && gh-pages -d site --nojekyll",
+		"format:check": "vp run fmt:check",
+		"format:fix": "vp run fmt:fix",
+		"lint:css:check": "vp run stylelint:check",
+		"lint:css:fix": "vp run stylelint:fix",
+		"lint:markdown:check": "vp run markdownlint:check",
+		"lint:markdown:fix": "vp run markdownlint:fix",
+		"lint:spell:check": "vp run cspell:check",
+		"lint:ts:check": "vp run lint:check",
+		"lint:ts:fix": "vp run lint:fix",
+		"test": "cross-env PLAYWRIGHT_BROWSERS_PATH=0 vp test",
+		"test:ui": "cross-env PLAYWRIGHT_BROWSERS_PATH=0 vp test watch --ui"
+	},
+	"devDependencies": {
+		"@types/node": "26.6.5",
+		"@vitest/ui": "5.0.4",
+		"cross-env": "10.1.0",
+		"cspell": "10.4.0",
+		"gh-pages": "6.3.0",
+		"markdownlint-cli": "0.49.1",
+		"postcss-styled-syntax": "0.7.4",
+		"stylelint": "17.16.0",
+		"stylelint-config-standard": "40.0.0",
+		"stylelint-order": "8.1.2",
+		"typescript": "7.0.2",
+		"vite-plus": "1.2.0"
+	},
+	"overrides": {
+		"vite": "npm:@voidzero-dev/vite-plus-core@1.2.0",
+		"vitest": "5.0.4"
+	},
+	"devEngines": {
+		"packageManager": {
+			"name": "npm",
+			"version": "^12.0.0",
+			"onFail": "error"
+		},
+		"runtime": {
+			"name": "node",
+			"version": "^22.22.2 || ^24.15.0 || >=26.0.0",
+			"onFail": "error"
+		}
+	}
+}

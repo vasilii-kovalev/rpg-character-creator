@@ -1,0 +1,5 @@
+{
+	// Root tool configs (`vite.config.ts`, linters) run in Node, not in deployed browser apps.
+	"extends": "./packages/configs/tsconfig.node.json",
+	"include": ["oxfmt.config.ts", "oxlint.config.ts", "vite.config.ts", "vitest.config.ts"]
+}

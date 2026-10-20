@@ -1,0 +1,11 @@
+{
+	// `target` / `lib` match the minimum Node.js version in root `devEngines` (^22.22.2 → ES2023).
+	"extends": "./tsconfig.base.json",
+	"compilerOptions": {
+		"target": "es2023",
+		"lib": ["ES2023"],
+		"types": ["node"]
+	},
+	// Not used on its own. Root and `packages/configs/tsconfig.json` extend this and set `include`.
+	"files": []
+}

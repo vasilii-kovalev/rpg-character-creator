@@ -1,0 +1,4 @@
+{
+	"extends": ["./tsconfig.app.json", "../../packages/configs/tsconfig.test.browser.json"],
+	"include": ["src/**/*.test.tsx", "vitest.browser.setup.ts"]
+}

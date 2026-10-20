@@ -1,0 +1,14 @@
+{
+	"files": [],
+	"references": [
+		{
+			"path": "./tsconfig.app.json"
+		},
+		{
+			"path": "./tsconfig.test.node.json"
+		},
+		{
+			"path": "./tsconfig.test.browser.json"
+		}
+	]
+}

@@ -1,0 +1,18 @@
+{
+	"compilerOptions": {
+		"module": "esnext",
+		"skipLibCheck": true,
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		// Interferes with the linter config for inline `type` on exports.
+		"verbatimModuleSyntax": false,
+		"moduleDetection": "force",
+		"noEmit": true,
+		"jsx": "react-jsx",
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		// No enums, namespaces, or other syntax that would need emit.
+		"erasableSyntaxOnly": true,
+		"noFallthroughCasesInSwitch": true
+	}
+}

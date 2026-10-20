@@ -1,0 +1,8 @@
+{
+	// Extended after the workspace `tsconfig.app.json`. "Node" is the Vitest runner, not the type environment: these tests type-check against the app's DOM libs and get no `@types/node`.
+	"compilerOptions": {
+		"types": ["vite/client", "vitest/globals"]
+	},
+	// Clears the app config's test-file `exclude`.
+	"exclude": []
+}

@@ -1,0 +1,8 @@
+{
+	// Extended after the workspace `tsconfig.app.json`. Adds Playwright provider types; the tests still type-check against the app's DOM libs.
+	"compilerOptions": {
+		"types": ["vite/client", "vitest/globals", "@vitest/browser-playwright"]
+	},
+	// Clears the app config's test-file `exclude`.
+	"exclude": []
+}

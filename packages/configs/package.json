@@ -1,0 +1,14 @@
+{
+	"name": "configs",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"devDependencies": {
+		"@vitejs/plugin-react": "6.1.2",
+		"@vitest/browser-playwright": "5.0.4",
+		"@wyw-in-js/vite": "2.5.1",
+		"oxc-transform-react": "0.154.0",
+		"playwright": "1.64.1",
+		"vite-plus": "1.2.0"
+	}
+}
