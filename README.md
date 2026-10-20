@@ -64,11 +64,11 @@ The second step downloads Chromium and Firefox into the repository for Vitest br
 The workspace recommends these extensions. The same list is in [`.vscode/extensions.json`](./.vscode/extensions.json):
 
 - Code Spell Checker
-- EditorConfig for VS Code
+- EditorConfig
 - markdownlint
 - Oxc
 - Stylelint
-- TypeScript 7
+- TypeScript 7/TypeScript (Native Preview)
 - vscode-styled-components
 
 ## License
