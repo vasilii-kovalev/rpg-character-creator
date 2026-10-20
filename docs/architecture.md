@@ -103,7 +103,7 @@ These imports point at TypeScript source. The consuming application compiles `pa
 
 Node.js and npm were chosen because they are already familiar and because the rest of the tools run on Node.js anyway.
 
-npm 12 was chosen because it enforces `devEngines` and `min-release-age`. The Node.js range is recorded only in the root `devEngines` field — there is no `engines` field, top-level `packageManager` field, or `.node-version` file — and copies npm 12's own `engines.node`, so the two stay aligned. Odd-numbered short-lived lines such as 23 and 25 are omitted. Every allowed version can run TypeScript config files directly, without a compile step. Selecting a compatible Node.js and npm version remains a local responsibility.
+npm 12 was chosen because its install-time security defaults are stricter than earlier majors. The Node.js range is recorded only in the root `devEngines` field — there is no `engines` field, top-level `packageManager` field, or `.node-version` file — and copies npm 12's own `engines.node`, so the two stay aligned. Odd-numbered short-lived lines such as 23 and 25 are omitted. Every allowed version can run TypeScript config files directly, without a compile step. Selecting a compatible Node.js and npm version remains a local responsibility.
 
 `.npmrc` sets `save-exact` and `min-release-age=3`. Every direct dependency, development dependency, and override uses an exact version. The lockfile is committed, and a clean install uses `npm ci`. Internal packages are reached through TypeScript paths, so they do not need version ranges.
 
