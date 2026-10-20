@@ -136,7 +136,7 @@ const config = defineConfig({
 			},
 		],
 		"import/prefer-default-export": "off",
-		// Array types use `Array<T>`, not `T[]`.
+		// To make the syntax consistent with other generics.
 		"typescript/array-type": [
 			"error",
 			{
