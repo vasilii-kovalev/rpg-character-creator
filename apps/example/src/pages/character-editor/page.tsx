@@ -1,8 +1,9 @@
 import { type ReactNode } from "react";
 import { Link, type LoaderFunctionArgs, useLoaderData } from "react-router";
 
-import { NameControl } from "./components/name-control";
 import { type Character, db } from "@/services/db";
+
+import { NameControl } from "./components/name-control";
 
 const loader = async ({ params }: LoaderFunctionArgs): Promise<Character> => {
 	const character = await db.characters.get(params.id ?? "");

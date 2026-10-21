@@ -10,7 +10,7 @@ const config = defineConfig({
 				groupName: "packages",
 			},
 		],
-		groups: ["builtin", "external", "packages", ["internal", "parent", "sibling", "index"]],
+		groups: ["builtin", "external", "packages", "internal", ["parent", "sibling", "index"]],
 		sortSideEffects: true,
 	},
 });

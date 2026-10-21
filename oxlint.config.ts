@@ -11,7 +11,7 @@ const config = defineConfig({
 	},
 	options: {
 		typeAware: true,
-		// Type errors surface through `vp lint`; there is no separate `tsc` script in `package.json`.
+		// Report TypeScript errors alongside lint diagnostics.
 		typeCheck: true,
 	},
 	overrides: [
@@ -105,6 +105,21 @@ const config = defineConfig({
 				allowArrowFunctions: true,
 			},
 		],
+		"eslint/no-magic-numbers": [
+			"error",
+			{
+				ignore: [-1, 0, 1],
+			},
+		],
+		"eslint/no-unused-vars": [
+			"error",
+			{
+				argsIgnorePattern: "^_",
+				caughtErrorsIgnorePattern: "^_",
+				destructuredArrayIgnorePattern: "^_",
+				varsIgnorePattern: "^_",
+			},
+		],
 		// Statement form is the explicit ignore for a floating promise.
 		"eslint/no-void": [
 			"error",
@@ -161,6 +176,7 @@ const config = defineConfig({
 		"typescript/no-import-type-side-effects": "off",
 		// The extra annotations are noise relative to the bugs this rule would catch here.
 		"typescript/prefer-readonly-parameter-types": "off",
+		"typescript/prefer-reduce-type-parameter": "error",
 	},
 });
 

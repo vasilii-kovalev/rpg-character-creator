@@ -9,7 +9,8 @@
 		"moduleDetection": "force",
 		"noEmit": true,
 		"jsx": "react-jsx",
-		"noUnusedLocals": true,
+		// Oxlint checks unused locals and allows names starting with "_"; TypeScript cannot configure that exception.
+		"noUnusedLocals": false,
 		"noUnusedParameters": true,
 		// No enums, namespaces, or other syntax that would need emit.
 		"erasableSyntaxOnly": true,
