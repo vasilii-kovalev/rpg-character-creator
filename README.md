@@ -18,6 +18,26 @@ Those goals shape the code. Rules stay with the game they belong to, calculation
 
 Why the repository is arranged this way is in [`docs/architecture.md`](./docs/architecture.md).
 
+## Installation
+
+### Node.js and npm
+
+The root `package.json` `devEngines` field requires:
+
+- Node.js `^22.22.2 || ^24.15.0 || >=26.0.0`
+- npm `^12.0.0`
+
+Incompatible versions fail at install.
+
+### Setup
+
+From the repository root:
+
+1. `npm install`
+2. `npm run install:browsers`
+
+The second step downloads Chromium and Firefox into the repository for Vitest browser tests.
+
 ## Scripts
 
 - `install:browsers` — Download Chromium and Firefox for browser tests into this repository.
@@ -38,26 +58,6 @@ Why the repository is arranged this way is in [`docs/architecture.md`](./docs/ar
 - `lint:ts:fix` — Apply TypeScript lint fixes.
 - `test` — Run the test suite.
 - `test:ui` — Run tests with the Vitest UI.
-
-## Installation
-
-### Node.js and npm
-
-The root `package.json` `devEngines` field requires:
-
-- Node.js `^22.22.2 || ^24.15.0 || >=26.0.0`
-- npm `^12.0.0`
-
-Incompatible versions fail at install.
-
-### Setup
-
-From the repository root:
-
-1. `npm install`
-2. `npm run install:browsers`
-
-The second step downloads Chromium and Firefox into the repository for Vitest browser tests.
 
 ### Recommended extensions
 
