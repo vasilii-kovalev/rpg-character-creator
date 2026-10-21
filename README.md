@@ -31,12 +31,14 @@ Incompatible versions fail at install.
 
 ### Setup
 
-From the repository root:
+From the repository root, run the following commands to install dependencies:
 
-1. `npm install`
-2. `npm run install:browsers`
+```sh
+npm ci
+npm run install:browsers
+```
 
-The second step downloads Chromium and Firefox into the repository for Vitest browser tests.
+The second command downloads Chromium and Firefox into the repository for Vitest browser tests.
 
 ## Scripts
 
