@@ -28,11 +28,11 @@ const config = defineConfig({
 			"fmt:fix": "vp fmt",
 			// `vp lint` type-checks app and test programs via each workspace `tsconfig.json` references and honors `.gitignore` via `--ignore-path`.
 			"lint:check": "vp lint --ignore-path .gitignore",
-			"lint:fix": "vp lint --ignore-path .gitignore --fix",
+			"lint:fix": "vp run lint:check --fix",
 			"markdownlint:check": 'markdownlint "**/*.md" --ignore-path .gitignore',
-			"markdownlint:fix": 'markdownlint "**/*.md" --ignore-path .gitignore --fix',
+			"markdownlint:fix": "vp run markdownlint:check --fix",
 			"stylelint:check": 'stylelint "**/*.{css,css.ts}" --ignore-path .gitignore',
-			"stylelint:fix": 'stylelint "**/*.{css,css.ts}" --ignore-path .gitignore --fix',
+			"stylelint:fix": "vp run stylelint:check --fix",
 		},
 	},
 });
