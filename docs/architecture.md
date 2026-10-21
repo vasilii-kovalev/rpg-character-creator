@@ -186,7 +186,7 @@ Lint and format commands are Vite Tasks so Vite Task can cache them. `package.js
 
 Oxlint enables every category except `nursery`, which the Oxlint docs mark as unstable by design. Those categories include the rules of hooks and the React Compiler rules Oxlint implements. The React override applies to TSX application code and `packages/ui`. Oxfmt reads indentation and line width from `.editorconfig`: tabs, with spaces in Markdown. It already treats `@/` as internal; import sorting gives `packages/<name>` a group of its own, between external packages and internal files.
 
-Generated and tooling output lives in `.gitignore`. Directory entries use a trailing `/**` so Oxlint `--ignore-path .gitignore` skips files even when a path is passed explicitly on the CLI; a plain `site/` entry is not enough. Stylelint, Markdownlint, and Cspell follow the same ignore file.
+Generated and tooling output lives in `.gitignore`. Directory entries use a trailing `/**` so Oxlint `--ignore-path .gitignore` skips files even when a path is passed explicitly on the CLI; a plain `site/` entry is not enough. Storybook output uses `**/storybook-static/**` to cover workspace builds as well as root-level output. Oxfmt, Stylelint, Markdownlint, and Cspell follow the same ignore file.
 
 ## Build and preview
 
