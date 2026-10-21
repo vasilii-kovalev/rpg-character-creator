@@ -27,7 +27,7 @@
 		"test:ui": "cross-env PLAYWRIGHT_BROWSERS_PATH=0 vp test watch --ui"
 	},
 	"devDependencies": {
-		"@types/node": "26.6.5",
+		"@types/node": "22.20.5",
 		"@vitest/ui": "5.0.4",
 		"cross-env": "10.1.0",
 		"cspell": "10.4.0",

@@ -119,7 +119,7 @@ At the repository root, `vp dev` cannot choose among several applications, and a
 
 Application code, shared packages, and configuration use TypeScript 7. Static types matter most for character models and rules. The `typescript` package is still installed for the editor language server and `tsc`; Vite+'s checker does not replace those. `vp check` uses the tsgo toolchain bundled with Vite+.
 
-Browser type-checking uses `ESNext` and DOM libraries. The production bundle target is Vite's default, not a duplicated `build.target`. Node configs use the language level of the minimum Node.js version in `devEngines`.
+Browser type-checking uses `ESNext` and DOM libraries. The production bundle target is Vite's default, not a duplicated `build.target`. Node configs use the language level of the minimum Node.js version in `devEngines`. `@types/node` is pinned to the Node 22 line to match the minimum supported runtime major rather than expose APIs from newer majors.
 
 Each workspace `tsconfig.json` references an application config and separate test configs. Application configs set `"types": ["vite/client"]`, which limits automatic global typings: Vitest globals stay off runtime code, and React types arrive by importing `react`. Test configs extend the application config, add Vitest types, and clear the inherited exclusion of test files. Shared compiler defaults live in `packages/configs/tsconfig.base.json`. The root `tsconfig.json` has no sources of its own; `tsconfig.node.json` covers root tool configs, which run in Node rather than in the browser.
 
