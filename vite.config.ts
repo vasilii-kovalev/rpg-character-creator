@@ -29,8 +29,8 @@ const config = defineConfig({
 			// `vp lint` type-checks app and test programs via each workspace `tsconfig.json` references and honors `.gitignore` via `--ignore-path`.
 			"lint:check": "vp lint --ignore-path .gitignore",
 			"lint:fix": "vp run lint:check --fix",
-			"markdownlint:check": "markdownlint-cli2",
-			"markdownlint:fix": "vp run markdownlint:check --fix",
+			"rumdl:check": "node scripts/rumdl.ts",
+			"rumdl:fix": "vp run rumdl:check --fix",
 			"stylelint:check": 'stylelint "**/*.{css,css.ts}" --ignore-path .gitignore',
 			"stylelint:fix": "vp run stylelint:check --fix",
 		},

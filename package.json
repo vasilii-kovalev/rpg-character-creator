@@ -18,12 +18,12 @@
 		"format:fix": "vp run fmt:fix",
 		"lint:css:check": "vp run stylelint:check",
 		"lint:css:fix": "vp run stylelint:fix",
-		"lint:markdown:check": "vp run markdownlint:check",
-		"lint:markdown:fix": "vp run markdownlint:fix",
+		"lint:markdown:check": "vp run rumdl:check",
+		"lint:markdown:fix": "vp run rumdl:fix",
 		"lint:spell:check": "vp run cspell:check",
 		"lint:ts:check": "vp run lint:check",
 		"lint:ts:fix": "vp run lint:fix",
-		"check-and-fix": "vp run stylelint:fix && vp run markdownlint:fix && vp run lint:fix && vp run cspell:check && vp run fmt:fix",
+		"check-and-fix": "vp run stylelint:fix && vp run rumdl:fix && vp run lint:fix && vp run cspell:check && vp run fmt:fix",
 		"test": "cross-env PLAYWRIGHT_BROWSERS_PATH=0 vp test",
 		"test:ui": "cross-env PLAYWRIGHT_BROWSERS_PATH=0 vp test watch --ui"
 	},
@@ -34,8 +34,8 @@
 		"cspell": "10.4.0",
 		"cspell-check-unused-words": "1.6.3",
 		"gh-pages": "6.3.0",
-		"markdownlint-cli2": "0.23.3",
 		"postcss-styled-syntax": "0.7.4",
+		"rumdl": "0.3.0",
 		"stylelint": "17.16.0",
 		"stylelint-config-standard": "40.0.0",
 		"stylelint-order": "8.1.2",
@@ -45,11 +45,6 @@
 	"overrides": {
 		"make-dir": {
 			"semver": "6.3.1"
-		},
-		"markdownlint-cli2": {
-			"katex": "0.19.0",
-			"markdown-it": "15.0.3",
-			"smol-toml": "1.9.1"
 		},
 		"vite": "npm:@voidzero-dev/vite-plus-core@1.3.0",
 		"vitest": "5.0.5"

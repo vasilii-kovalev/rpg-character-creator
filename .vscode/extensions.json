@@ -1,10 +1,10 @@
 {
 	"recommendations": [
-		"DavidAnson.vscode-markdownlint",
 		"EditorConfig.EditorConfig",
 		"oxc.oxc-vscode",
-		"styled-components.vscode-styled-components",
+		"rvben.rumdl",
 		"streetsidesoftware.code-spell-checker",
+		"styled-components.vscode-styled-components",
 		"stylelint.vscode-stylelint",
 		"TypeScriptTeam.native-preview"
 	]

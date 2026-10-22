@@ -11,13 +11,6 @@ const config = defineConfig({
 				useTabs: true,
 			},
 		},
-		{
-			// The default would put a trailing comma back into this JSONC file.
-			files: [".markdownlint-cli2.jsonc"],
-			options: {
-				trailingComma: "none",
-			},
-		},
 	],
 	sortImports: {
 		// Matches the `packages/*` TypeScript path alias: internal workspace imports stay in their own group.
