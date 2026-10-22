@@ -194,6 +194,8 @@ Oxlint and Oxfmt are used for speed. Oxlint enables every category except `nurse
 
 Generated and tooling output lives in `.gitignore`. Directory entries use a trailing `/**` so Oxlint `--ignore-path .gitignore` skips files even when a path is passed explicitly on the CLI; a plain `site/` entry is not enough. Storybook output uses `**/storybook-static/**` to cover workspace builds as well as root-level output. Oxfmt, Stylelint, Markdownlint, and CSpell follow the same ignore file.
 
+Markdown lint runs through `markdownlint-cli2`. Globs, the root `.gitignore` path, and the rule settings live in `.markdownlint-cli2.jsonc`, which the editor extension reads as well. `.markdownlint.json` only accepts rules, and a file with that name overrides `config`, so it cannot hold the glob or gitignore settings.
+
 ## Build and preview
 
 The production site is assembled in `site/`: the dashboard at the root, each application under `site/<slug>/`.

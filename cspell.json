@@ -3,5 +3,5 @@
 	"ignorePaths": ["LICENSE"],
 	"useGitignore": true,
 	"version": "0.2",
-	"words": ["dexie", "linaria", "nojekyll", "voidzero"]
+	"words": ["dexie", "katex", "linaria", "nojekyll", "oneclickpush", "rumdl", "smol", "voidzero"]
 }
