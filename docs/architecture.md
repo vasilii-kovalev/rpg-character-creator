@@ -12,11 +12,15 @@ Those constraints decide the rest of this document. Hosting has to serve unchang
 
 GitHub Pages is the only deployment target. It keeps hosting beside the source repository, costs nothing for this project, and avoids a dedicated server.
 
-Pages serves the generated files as they are. It does not rewrite a missing path to `index.html`. The published tree is the root of the `gh-pages` branch, produced locally by the `gh-pages` package. There is no deployment workflow in the repository.
+Publishing is a local step: `prod:publish` builds the site, and the `gh-pages` package pushes `site/` to the root of the `gh-pages` branch. There is no deployment workflow in the repository. A local step is simpler to maintain and operate, and small commits do not start a deployment on every push.
+
+Pages serves the generated files as they are. It does not rewrite a missing path to `index.html`.
 
 Asset URLs are relative, so the same build works at a domain root and under a project-site prefix. No source file contains a host name or a repository path. The development server still serves that relative layout from `/`.
 
 GitHub Pages runs Jekyll on a published branch unless a `.nojekyll` file is present. Jekyll would treat the generated site as source and omit names that start with `_` or `.`. Publishing passes `--nojekyll` so Pages serves the tree unchanged. That file is added to the published branch, not to `site/` on `main`.
+
+Pages decides caching on its own. Every file, including content-hashed assets, is served with a ten-minute `Cache-Control: max-age`.
 
 ## Routing
 
@@ -103,9 +107,11 @@ These imports point at TypeScript source. The consuming application compiles `pa
 
 Node.js and npm were chosen because they are already familiar and because the rest of the tools run on Node.js anyway.
 
-npm 12 was chosen because its install-time security defaults are stricter than earlier majors. The Node.js range is recorded only in the root `devEngines` field — there is no `engines` field, top-level `packageManager` field, or `.node-version` file — and copies npm 12's own `engines.node`, so the two stay aligned. Odd-numbered short-lived lines such as 23 and 25 are omitted. Every allowed version can run TypeScript config files directly, without a compile step. Selecting a compatible Node.js and npm version remains a local responsibility.
+npm 12 was chosen because its install-time security defaults are stricter than earlier majors. The Node.js range is recorded only in the root `devEngines` field — there is no `engines` field, top-level `packageManager` field, or `.node-version` file — and copies npm 12's own `engines.node`, so the two stay aligned. Odd-numbered short-lived lines such as 23 and 25 are omitted. Every allowed version can run TypeScript config files directly, without a compile step. An incompatible version stops the install. Selecting a compatible Node.js and npm version remains a local responsibility.
 
 `.npmrc` sets `save-exact` and `min-release-age=3`. Every direct dependency, development dependency, and override uses an exact version. The lockfile is committed, and a clean install uses `npm ci`. Internal packages are reached through TypeScript paths, so they do not need version ranges.
+
+`dependencies` lists only code that ships to the browser. Everything else runs at build or development time.
 
 ### Vite+
 
@@ -117,7 +123,7 @@ At the repository root, `vp dev` cannot choose among several applications, and a
 
 ### TypeScript
 
-Application code, shared packages, and configuration use TypeScript 7. Static types matter most for character models and rules. The `typescript` package is still installed for the editor language server and `tsc`; Vite+'s checker does not replace those. `vp check` uses the tsgo toolchain bundled with Vite+.
+Application code, shared packages, and configuration use TypeScript 7. Static types matter most for character models and rules. The `typescript` package provides the editor language server and `tsc`; Vite+'s checker does not replace those. `vp check` uses the tsgo toolchain bundled with Vite+.
 
 Browser type-checking uses `ESNext` and DOM libraries. The production bundle target is Vite's default, not a duplicated `build.target`. Node configs use the language level of the minimum Node.js version in `devEngines`. `@types/node` is pinned to the Node 22 line to match the minimum supported runtime major rather than expose APIs from newer majors.
 
@@ -184,9 +190,9 @@ Playwright browsers are installed into `node_modules/playwright-core/.local-brow
 
 Lint and format commands are Vite Tasks so Vite Task can cache them. `package.json` scripts call those tasks under different names because a task and a script cannot share a name. There is no separate type-check script: Oxlint `typeCheck` reports type errors alongside its rules. Type-aware linting uses each workspace's referenced configs.
 
-Oxlint enables every category except `nursery`, which the Oxlint docs mark as unstable by design. Those categories include the rules of hooks and the React Compiler rules Oxlint implements. The React override applies to TSX application code and `packages/ui`. Oxfmt reads indentation and line width from `.editorconfig`: tabs, with spaces in Markdown. It already treats `@/` as internal; import sorting gives `packages/<name>` a group of its own, between external packages and internal files.
+Oxlint and Oxfmt are used for speed. Oxlint enables every category except `nursery`, which the Oxlint docs mark as unstable by design. Those categories include the rules of hooks and the React Compiler rules Oxlint implements. The React override applies to TSX application code and `packages/ui`. Oxfmt reads indentation and line width from `.editorconfig`: tabs, with spaces in Markdown. It already treats `@/` as internal; import sorting gives `packages/<name>` a group of its own, between external packages and internal files.
 
-Generated and tooling output lives in `.gitignore`. Directory entries use a trailing `/**` so Oxlint `--ignore-path .gitignore` skips files even when a path is passed explicitly on the CLI; a plain `site/` entry is not enough. Storybook output uses `**/storybook-static/**` to cover workspace builds as well as root-level output. Oxfmt, Stylelint, Markdownlint, and Cspell follow the same ignore file.
+Generated and tooling output lives in `.gitignore`. Directory entries use a trailing `/**` so Oxlint `--ignore-path .gitignore` skips files even when a path is passed explicitly on the CLI; a plain `site/` entry is not enough. Storybook output uses `**/storybook-static/**` to cover workspace builds as well as root-level output. Oxfmt, Stylelint, Markdownlint, and CSpell follow the same ignore file.
 
 ## Build and preview
 
