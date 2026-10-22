@@ -55,7 +55,7 @@ The second command downloads Chromium and Firefox into the repository for Vitest
 - `lint:css:fix` — Fix CSS and Linaria styles.
 - `lint:markdown:check` — Check Markdown.
 - `lint:markdown:fix` — Fix Markdown.
-- `lint:spell:check` — Check spelling.
+- `lint:spell:check` — Check spelling and report unused words in the CSpell configuration.
 - `lint:ts:check` — Lint TypeScript and report type errors.
 - `lint:ts:fix` — Apply TypeScript lint fixes.
 - `test` — Run the test suite.

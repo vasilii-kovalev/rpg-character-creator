@@ -23,7 +23,7 @@ const config = defineConfig({
 				],
 			},
 			// A task and a `package.json` script cannot share a name, so the scripts call these by their own names.
-			"cspell:check": "cspell . --quiet --no-show-suggestions",
+			"cspell:check": "cspell . --quiet --no-show-suggestions && cspell-check-unused-words",
 			"fmt:check": "vp fmt --check",
 			"fmt:fix": "vp fmt",
 			// `vp lint` type-checks app and test programs via each workspace `tsconfig.json` references and honors `.gitignore` via `--ignore-path`.

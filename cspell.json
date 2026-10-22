@@ -1,6 +1,7 @@
 {
+	"files": ["**"],
 	"ignorePaths": ["LICENSE"],
-	"ignoreWords": ["dexie", "dexie's", "dirlock", "linaria", "nojekyll", "opfs", "voidzero"],
 	"useGitignore": true,
-	"version": "0.2"
+	"version": "0.2",
+	"words": ["dexie", "linaria", "nojekyll", "voidzero"]
 }
