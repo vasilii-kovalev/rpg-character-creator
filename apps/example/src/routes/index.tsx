@@ -1,9 +1,9 @@
 import { createHashRouter, type LazyRouteFunction, redirect, type RouteObject } from "react-router";
 
-import { createId } from "packages/shared";
+import { createId } from "packages/shared/src/create-id";
 
-import { PageFallback } from "./page-fallback";
 import { db } from "../services/db";
+import { PageFallback } from "./page-fallback";
 
 type PageModule = Awaited<ReturnType<LazyRouteFunction<RouteObject>>>;
 

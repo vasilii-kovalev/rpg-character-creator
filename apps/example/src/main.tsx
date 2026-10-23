@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router";
 
-import { Button } from "packages/ui";
+import { Button } from "packages/ui/src/button/button";
 
 import { router } from "./routes";
 import "./styles/global.css";

@@ -5,7 +5,7 @@
 		"lib": ["ESNext", "DOM"],
 		"types": ["vite/client"],
 		"paths": {
-			"packages/*": ["../../packages/*/src/index.ts"]
+			"packages/*": ["../../packages/*"]
 		}
 	},
 	// Not used on its own. Workspace `tsconfig.app.json` files extend this and set `include`.

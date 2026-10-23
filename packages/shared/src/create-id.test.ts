@@ -1,4 +1,4 @@
-import { createId } from "./index.ts";
+import { createId } from "./create-id.ts";
 
 const urlSafeId = /^[A-Za-z0-9_-]{21}$/u;
 
