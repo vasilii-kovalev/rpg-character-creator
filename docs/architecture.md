@@ -12,13 +12,13 @@ Those constraints decide the rest of this document. Hosting has to serve unchang
 
 GitHub Pages is the only deployment target. It keeps hosting beside the source repository, costs nothing for this project, and avoids a dedicated server.
 
-Publishing is a local step: `prod:publish` builds the site, and the `gh-pages` package pushes `site/` to the root of the `gh-pages` branch. There is no deployment workflow in the repository. A local step is simpler to maintain and operate, and small commits do not start a deployment on every push.
+Publishing is a local step: `prod:publish` builds the site, and `oneclickpush` pushes `site/` to the root of the `gh-pages` branch. There is no deployment workflow in the repository. A local step is simpler to maintain and operate, and small commits do not start a deployment on every push. `oneclickpush` replaces `gh-pages`, which has security issues and is unmaintained. The replacement has no dependencies and pushes with Node's built-in APIs and git.
 
 Pages serves the generated files as they are. It does not rewrite a missing path to `index.html`.
 
 Asset URLs are relative, so the same build works at a domain root and under a project-site prefix. No source file contains a host name or a repository path. The development server still serves that relative layout from `/`.
 
-GitHub Pages runs Jekyll on a published branch unless a `.nojekyll` file is present. Jekyll would treat the generated site as source and omit names that start with `_` or `.`. Publishing passes `--nojekyll` so Pages serves the tree unchanged. That file is added to the published branch, not to `site/` on `main`.
+GitHub Pages runs Jekyll on a published branch unless a `.nojekyll` file is present. Jekyll would treat the generated site as source and omit names that start with `_` or `.`. `oneclickpush` publishes `site/` as it stands, including dotfiles. Its CLI has no way to add `.nojekyll` automatically, so the publish script writes that empty file into `site/` after the build. The site build deletes `site/` before generating it, so the write follows the build and Pages serves the tree unchanged. That file is added to the published branch, not to `site/` on `main`.
 
 Pages decides caching on its own. Every file, including content-hashed assets, is served with a ten-minute `Cache-Control: max-age`.
 
