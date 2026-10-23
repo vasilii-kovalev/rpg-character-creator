@@ -18,7 +18,7 @@ Pages serves the generated files as they are. It does not rewrite a missing path
 
 Asset URLs are relative, so the same build works at a domain root and under a project-site prefix. No source file contains a host name or a repository path. The development server still serves that relative layout from `/`.
 
-GitHub Pages runs Jekyll on a published branch unless a `.nojekyll` file is present. Jekyll would treat the generated site as source and omit names that start with `_` or `.`. `oneclickpush` publishes `site/` as it stands, including dotfiles. Its CLI has no way to add `.nojekyll` automatically, so the publish script writes that empty file into `site/` after the build. The site build deletes `site/` before generating it, so the write follows the build and Pages serves the tree unchanged. That file is added to the published branch, not to `site/` on `main`.
+GitHub Pages runs Jekyll on a published branch unless a `.nojekyll` file is present. Jekyll would treat the generated site as source and omit names that start with `_` or `.`. `oneclickpush` copies the built directory as it stands, including dotfiles. Adding `.nojekyll` is left to the caller so the step stays explicit ([oneclickpush#1](https://github.com/zerodevx/oneclickpush/issues/1#issuecomment-6366801208)). The build writes that empty file afterward with Node, because `touch` is a POSIX command and Windows does not provide it. Each build clears `site/` first, so the file belongs to the published tree only.
 
 Pages decides caching on its own. Every file, including content-hashed assets, is served with a ten-minute `Cache-Control: max-age`.
 
