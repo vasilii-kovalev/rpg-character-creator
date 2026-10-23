@@ -1,7 +1,7 @@
 import { type ReactNode } from "react";
 import { type ActionFunctionArgs, Form, Link, useLoaderData } from "react-router";
 
-import { type Character, db } from "@/services/db";
+import { type Character, db } from "../../services/db";
 
 const loader = async (): Promise<Array<Character>> => {
 	const characters = await db.characters.toArray();

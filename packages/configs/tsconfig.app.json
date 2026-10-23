@@ -5,9 +5,7 @@
 		"lib": ["ESNext", "DOM"],
 		"types": ["vite/client"],
 		"paths": {
-			"packages/*": ["../../packages/*/src/index.ts"],
-			// `${configDir}` is the extending workspace, so `@/` always means that package's `src/`.
-			"@/*": ["${configDir}/src/*"]
+			"packages/*": ["../../packages/*/src/index.ts"]
 		}
 	},
 	// Not used on its own. Workspace `tsconfig.app.json` files extend this and set `include`.

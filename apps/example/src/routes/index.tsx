@@ -2,8 +2,8 @@ import { createHashRouter, type LazyRouteFunction, redirect, type RouteObject } 
 
 import { createId } from "packages/shared";
 
-import { PageFallback } from "@/routes/page-fallback";
-import { db } from "@/services/db";
+import { PageFallback } from "./page-fallback";
+import { db } from "../services/db";
 
 type PageModule = Awaited<ReturnType<LazyRouteFunction<RouteObject>>>;
 
@@ -24,13 +24,13 @@ const loadPage = (importer: LazyRouteFunction<RouteObject>): (() => Promise<Page
 };
 
 const loadCharacterListPage = loadPage(async () => {
-	const page = await import("@/pages/character-list/page");
+	const page = await import("../pages/character-list/page");
 
 	return page;
 });
 
 const loadCharacterEditorPage = loadPage(async () => {
-	const page = await import("@/pages/character-editor/page");
+	const page = await import("../pages/character-editor/page");
 
 	return page;
 });

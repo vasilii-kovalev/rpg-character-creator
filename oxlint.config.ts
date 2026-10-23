@@ -83,14 +83,6 @@ const config = defineConfig({
 			files: ["packages/configs/**/*.ts"],
 			rules: {
 				"import/no-nodejs-modules": "off",
-				"import/no-relative-parent-imports": "off",
-			},
-		},
-		{
-			// Application and package configs import the shared Vite helpers.
-			files: ["**/vite.config.ts"],
-			rules: {
-				"import/no-relative-parent-imports": "off",
 			},
 		},
 	],
@@ -143,6 +135,7 @@ const config = defineConfig({
 		// `type` is placed on the name. Every imported or exported symbol uses that same marking.
 		"import/consistent-type-specifier-style": ["error", "prefer-inline"],
 		"import/no-named-export": "off",
+		"import/no-relative-parent-imports": "off",
 		// A stylesheet import exists for its side effect, so there is no binding to assign.
 		"import/no-unassigned-import": [
 			"error",

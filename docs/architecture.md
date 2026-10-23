@@ -87,7 +87,7 @@ Each other `apps/<slug>` directory is one character creator. It owns that game's
 
 `packages/ui` is the shared React component library.
 
-`packages/configs` holds the shared build, test, and TypeScript configuration. Workspace config files import it by relative path: those files load before TypeScript path aliases apply, and application source never imports this package.
+`packages/configs` holds the shared build, test, and TypeScript configuration. Application source never imports this package.
 
 An application may import either reusable package, and `packages/ui` may import `packages/shared`. Neither package imports an application, and `packages/shared` does not import `packages/ui`.
 
@@ -97,9 +97,19 @@ Each application is a separate build so one game's code stays out of the others 
 
 ### Imports
 
-The workspace uses two import prefixes. `packages/<name>` reaches another workspace package. `@/` reaches a file under the current package's `src/`. `@/` is mapped through `${configDir}`, which TypeScript resolves to the extending config, so the alias always points at that workspace. Nested application source uses `@/` because parent-relative imports across directories are forbidden. Inside `packages/ui` and `packages/shared`, imports within `src/` stay relative.
+Another workspace package is imported as `packages/<name>`. `packages/configs/tsconfig.app.json` maps `packages/*` to that package's `src/index.ts`. Application and package configs extend that file, so the mapping is written once. Node loads `vite.config.ts` and the other tool configs before `paths` apply, so those files import `packages/configs` by relative path.
 
-These imports point at TypeScript source. The consuming application compiles `packages/shared` and `packages/ui` as part of its own build, and Storybook does the same for `packages/ui`.
+A file reaches other modules in its own workspace with a relative import. Importing `packages/shared` adds that package's `.ts` files to the application's compilation, and the compiler does not apply `packages/shared`'s config to them. `${configDir}` is the directory of the opened config, not of the imported file, so an alias such as `@/` or `src/`, set to the extending workspace's `src`, means the application's `src` for those shared files too. `baseUrl` used to be a lookup root for bare imports. TypeScript 7 does not implement it, and a `paths` entry used in its place has the same limit. `rootDir` only affects emit layout. The `packages/*` wildcard can also resolve a package to itself; files inside that package do not use that specifier. Relative imports climb directories, so `import/no-relative-parent-imports` is off.
+
+A second `paths` entry for every package `src` lets the first existing file win. The list grows with every package, and two packages that contain the same relative path collide. A distinct prefix per package (`@shared/*`, `@example/*`) is the layout Nx and similar monorepos use. Names do not collide, but each package adds a line, and the prefix is not "the current package."
+
+Project references give each package its own compilation, so a local alias works there. The application lists every dependency under `references`. A wildcard is not supported; [TypeScript#56279](https://github.com/microsoft/TypeScript/issues/56279) asks for one and is open. The handbook behavior is that the importer then loads the referenced project's `.d.ts` output, so the package is compiled ahead of the application. [TypeScript#58657](https://github.com/microsoft/TypeScript/issues/58657) asks the compiler to apply an internal package's own `paths` while typechecking its uncompiled source. That is not implemented.
+
+`package.json` `"imports"` does follow the importing file. TypeScript 7 resolves a specifier that starts with `#` from the nearest `package.json`, including when that file is part of an application compilation. Turborepo documents this for monorepos, and the TypeScript handbook points to it as the standard replacement for a convenience `paths` alias. `*` is the only pattern character, so one entry cannot match both `.ts` and `.tsx`. The import writes the extension (`"#*": "./src/*"`, then `#services/db.ts`).
+
+That extension cannot be required on every import. With `moduleResolution` set to `bundler`, `allowImportingTsExtensions` permits `.ts` and `.tsx` and still accepts an import that omits them. Oxlint's `import/extensions` rule can require `.js`, `.jsx`, `.ts`, and `.tsx`. `ignorePackages` skips specifiers that are not relative and not an alias of the form `@/`, `#/`, or `~/`, so `packages/<name>` is never checked, and neither is `#services/db`. With `ignorePackages` off, the rule reports real packages such as `react`, which have no extension to add. Checking internal imports while ignoring those package names takes a `pathGroupOverrides` list on the rule. `package.json` `"imports"` was discarded because of that complexity.
+
+Relative imports are the simplest approach that keeps packages as source, keeps a single `packages/*` entry, and does not change when a workspace starts importing another package. They do not write an extension, so that rule is unnecessary.
 
 ## Toolchain
 
@@ -149,6 +159,8 @@ The dashboard (`isDashboard: true`) writes to `<repository-root>/site/` and omit
 
 `packages/ui` registers that same plugin list. Storybook is started from `packages/ui`, finds this Vite config beside `.storybook`, and leaves the plugin list alone.
 
+Site configs and the `packages/ui` config set `resolve.tsconfigPaths`, so Vite follows the `packages/*` mapping. `packages/shared` has no `packages/<name>` imports, so its config leaves the option unset.
+
 ## UI and styles
 
 Shared React components live in `packages/ui`. Application-specific components stay with their application. Each shared component keeps its Linaria styles in a colocated `*.css.ts` file.
@@ -178,7 +190,7 @@ Rule tests call those functions directly and do not open Dexie. Generic helpers 
 
 Part of the project is to find out how much confidence these approaches provide compared with exhaustive checking. A bounded comparison has not been chosen yet.
 
-Vitest is a multi-project workspace. The root `vitest.config.ts` only names the projects. Each project's test options live in that workspace's `vite.config.ts`, the same file its build and development server use, so path aliases, plugins, and `define` values stay in one place. Vitest projects do not inherit test options from the root file. `packages/configs` is omitted: it has helpers, not tests.
+Vitest is a multi-project workspace. The root `vitest.config.ts` only names the projects. Each project's test options live in that workspace's `vite.config.ts`, the same file its build and development server use, so plugins, `define` values, and `resolve` stay in one place. Vitest projects do not inherit test options from the root file. `packages/configs` is omitted: it has helpers, not tests.
 
 `*.test.ts` runs in Node. `*.test.tsx` runs in Vitest browser mode. Nested node and browser projects inherit the workspace Vite config, so Linaria compiles in Node tests and no CSS mock is needed. `packages/shared` has no components and uses the Node config alone.
 
@@ -190,7 +202,7 @@ Playwright browsers are installed into `node_modules/playwright-core/.local-brow
 
 Lint and format commands are Vite Tasks (except markdown-related ones; see the reason below) so Vite Task can cache them. `package.json` scripts call those tasks under different names because a task and a script cannot share a name. There is no separate type-check script: Oxlint `typeCheck` reports type errors alongside its rules. Type-aware linting uses each workspace's referenced configs.
 
-Oxlint and Oxfmt are used for speed. Oxlint enables every category except `nursery`, which the Oxlint docs mark as unstable by design. Those categories include the rules of hooks and the React Compiler rules Oxlint implements. The React override applies to TSX application code and `packages/ui`. Oxfmt reads indentation and line width from `.editorconfig`: tabs, with spaces in Markdown. It already treats `@/` as internal; import sorting gives `packages/<name>` a group of its own, between external packages and internal files.
+Oxlint and Oxfmt are used for speed. Oxlint enables every category except `nursery`, which the Oxlint docs mark as unstable by design. Those categories include the rules of hooks and the React Compiler rules Oxlint implements. The React override applies to TSX application code and `packages/ui`. Oxfmt reads indentation and line width from `.editorconfig`: tabs, with spaces in Markdown. Import sorting gives `packages/<name>` a group of its own, between external packages and relative files.
 
 Generated and tooling output lives in `.gitignore`. Directory entries use a trailing `/**` so Oxlint `--ignore-path .gitignore` skips files even when a path is passed explicitly on the CLI; a plain `site/` entry is not enough. Storybook output uses `**/storybook-static/**` to cover workspace builds as well as root-level output. Oxfmt, Stylelint, rumdl, and CSpell follow the same ignore file.
 

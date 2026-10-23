@@ -1,7 +1,7 @@
 import { type ReactNode } from "react";
 import { Link, type LoaderFunctionArgs, useLoaderData } from "react-router";
 
-import { type Character, db } from "@/services/db";
+import { type Character, db } from "../../services/db";
 
 import { NameControl } from "./components/name-control";
 
