@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url";
 
 import react from "@vitejs/plugin-react";
 import wyw from "@wyw-in-js/vite";
+import sonda from "sonda/vite";
 import { type PluginOption } from "vite";
 import { type UserConfig } from "vite-plus";
 
@@ -66,6 +67,8 @@ const createSiteConfig = ({ configModuleUrl, devPort, isDashboard = false }: Sit
 				isDashboard,
 				slug,
 			}),
+			// Sonda reads the source map when it reports the bundle.
+			sourcemap: true,
 		},
 		preview: {
 			port: devPort,
@@ -81,7 +84,10 @@ const createSiteConfig = ({ configModuleUrl, devPort, isDashboard = false }: Sit
 
 	// Dashboard is a static index into `site/`; other apps supply Linaria, React, and the per-slug database name.
 	if (isDashboard) {
-		return shared;
+		return {
+			...shared,
+			plugins: [sonda()],
+		};
 	}
 
 	return {
@@ -90,7 +96,7 @@ const createSiteConfig = ({ configModuleUrl, devPort, isDashboard = false }: Sit
 			// Origin-scoped IndexedDB: the repo name keeps GitHub Pages project sites from colliding.
 			"import.meta.env.VITE_APPLICATION_DATABASE_NAME": JSON.stringify(`${rootPackage.name}:${slug}`),
 		},
-		plugins: createLinariaReactPlugins(),
+		plugins: [...createLinariaReactPlugins(), sonda()],
 	};
 };
 

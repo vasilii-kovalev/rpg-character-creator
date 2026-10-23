@@ -2,5 +2,6 @@ node_modules/
 # Trailing `/**` keeps Oxlint `--ignore-path .gitignore` aligned with Git for explicitly passed paths (`site/` alone does not).
 site/**
 **/storybook-static/**
+**/.sonda/**
 .vite/**
 *.tsbuildinfo
