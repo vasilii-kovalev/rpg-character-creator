@@ -1,11 +1,11 @@
-import { createId } from "./create-id.ts";
+import { generateId } from "./generate-id.ts";
 
 const urlSafeId = /^[A-Za-z0-9_-]{21}$/u;
 
-describe("createId", () => {
+describe("generateId", () => {
 	it("returns distinct 21-character URL-safe strings", () => {
-		const first = createId();
-		const second = createId();
+		const first = generateId();
+		const second = generateId();
 
 		expect(first).toMatch(urlSafeId);
 		expect(second).toMatch(urlSafeId);

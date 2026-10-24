@@ -1,6 +1,6 @@
 import { createHashRouter, type LazyRouteFunction, redirect, type RouteObject } from "react-router";
 
-import { createId } from "packages/shared/src/create-id";
+import { generateId } from "packages/shared/src/generate-id";
 
 import { db } from "../services/db";
 import { PageFallback } from "./page-fallback";
@@ -40,7 +40,7 @@ void loadCharacterListPage();
 void loadCharacterEditorPage();
 
 const createCharacter = async (): Promise<Response> => {
-	const id = createId();
+	const id = generateId();
 
 	await db.characters.add({
 		id,

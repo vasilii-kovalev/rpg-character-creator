@@ -47,7 +47,7 @@ IndexedDB stores objects, is asynchronous, and gives each application a named da
 
 Dexie is the IndexedDB wrapper because the applications need declared tables, indexes, queries, and schema upgrades — not accounts, replication, or a second storage engine. [`idb`](https://github.com/jakearchibald/idb) is a thinner promise wrapper and leaves more schema work in application code. [localForage](https://localforage.github.io/localForage/) is convenient for key-value storage. [TanStack DB](https://tanstack.com/db/latest) and [RxDB](https://rxdb.info/) add reactive collections, incremental queries, or replication. [SQLite compiled to WebAssembly](https://sqlite.org/wasm/doc/trunk/index.md) is a different stack. Dexie is the middle of that range.
 
-`createId` in `packages/shared/src/create-id.ts` wraps nanoid for primary keys. The default nanoid is a 21-character URL-safe string with enough randomness for independently created browser databases, and a different shape from the `new` route segment. String ids also leave room for later export and import.
+`generateId` in `packages/shared/src/generate-id.ts` wraps nanoid for primary keys. The default nanoid is a 21-character URL-safe string with enough randomness for independently created browser databases, and a different shape from the `new` route segment. String ids also leave room for later export and import.
 
 Applications that store characters construct Dexie in `src/services/db/index.ts`. One `characters` row is one complete character. Nested choices stay on that row and are stored through structured clone. The rules catalog ships with the application. Calculated fields are recomputed from that row and the catalog when the character is loaded.
 
