@@ -59,8 +59,8 @@ The second command downloads Chromium and Firefox into the repository for Vitest
 - `lint:ts:check` — Lint TypeScript and report type errors.
 - `lint:ts:fix` — Apply TypeScript lint fixes.
 - `check-and-fix` — Run project checks and apply automatic fixes.
-- `test` — Run the test suite.
-- `test:ui` — Run tests with the Vitest UI.
+- `test` — Run the test suite and write a coverage report.
+- `test:ui` — Run tests with the Vitest UI and a coverage report.
 
 ### Recommended extensions
 

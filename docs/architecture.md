@@ -198,6 +198,8 @@ Browser tests use Playwright's Chromium and Firefox, headless. Headed Playwright
 
 Playwright browsers are installed into `node_modules/playwright-core/.local-browsers` by setting `PLAYWRIGHT_BROWSERS_PATH=0` on the npm scripts that install and launch them. That keeps the binaries inside the repository instead of a user-level cache. Vitest's `test.env` does not reach the Node workers that launch Playwright, so the variable cannot live in the Vitest config. Playwright is pinned in `packages/configs` because versions before 1.60.0 can hang while extracting browser archives on Node 24.16+ and 26.
 
+`test` and `test:ui` pass `--coverage`. Coverage is configured on the root Vitest config because that is the only coverage config Vitest uses. The provider is `@vitest/coverage-istanbul`, pinned next to Vitest. `@vitest/coverage-v8` only collects browser coverage from Chromium, and the browser projects also run Firefox. Reports are written to `coverage/`, which is gitignored. The UI script shows that same report in the Vitest UI.
+
 ## Lint and format
 
 Lint and format commands are Vite Tasks (except markdown-related ones; see the reason below) so Vite Task can cache them. `package.json` scripts call those tasks under different names because a task and a script cannot share a name. There is no separate type-check script: Oxlint `typeCheck` reports type errors alongside its rules. Type-aware linting uses each workspace's referenced configs.
