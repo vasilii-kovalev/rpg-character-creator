@@ -14,5 +14,9 @@
 	"stylelint.ignorePath": "${workspaceFolder}/.gitignore",
 	"stylelint.lintFiles.glob": "**/*.{css,css.ts}",
 	// Linaria `*.css.ts` files are TypeScript as far as the editor is concerned.
-	"stylelint.validate": ["css", "typescript"]
+	"stylelint.validate": ["css", "typescript"],
+	// Same signal as `install:browsers` and the `test` scripts. The extension spawns Vitest itself, so it never sees `cross-env` on those scripts. The value must be the string "0".
+	"vitest.nodeEnv": {
+		"PLAYWRIGHT_BROWSERS_PATH": "0"
+	}
 }
