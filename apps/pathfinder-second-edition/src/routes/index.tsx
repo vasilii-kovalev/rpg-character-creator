@@ -1,6 +1,6 @@
 import { createHashRouter, type LazyRouteFunction, redirect, type RouteObject } from "react-router";
 
-import { generateId } from "packages/shared/src/generate-id";
+import { generateId } from "packages/shared/src/utilities/generate-id";
 
 import { db } from "../services/db";
 import { PageFallback } from "./page-fallback";

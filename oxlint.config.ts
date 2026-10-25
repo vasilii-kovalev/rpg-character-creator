@@ -165,7 +165,7 @@ const config = defineConfig({
 				patterns: [
 					{
 						group: ["nanoid", "nanoid/*"],
-						message: "Import `generateId` from `packages/shared/src/generate-id`.",
+						message: "Import `generateId` from `packages/shared/src/utilities/generate-id`.",
 					},
 				],
 			},
