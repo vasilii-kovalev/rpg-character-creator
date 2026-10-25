@@ -1,8 +1,10 @@
-node_modules/
-# Trailing `/**` keeps Oxlint `--ignore-path .gitignore` aligned with Git for explicitly passed paths (`site/` alone does not).
+# Globs, so Vite Task can prefix each line with `!`.
+# A trailing `/**` keeps Oxlint `--ignore-path .gitignore` aligned with Git for explicitly passed paths (`site/` alone does not).
+# A leading `**/` matches in every directory.
+**/node_modules/**
 site/**
 **/storybook-static/**
 **/.sonda/**
 .vite/**
 coverage/**
-*.tsbuildinfo
+**/*.tsbuildinfo

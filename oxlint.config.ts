@@ -83,8 +83,8 @@ const config = defineConfig({
 			},
 		},
 		{
-			// The shared Vite config runs in Node and needs its built-in modules.
-			files: ["packages/configs/**/*.ts"],
+			// Vite configs run in Node.
+			files: ["packages/configs/**/*.ts", "vite.config.ts"],
 			rules: {
 				"import/no-nodejs-modules": "off",
 			},
