@@ -3,7 +3,6 @@
 # TODO
 
 - Investigate [TypeScript#58657](https://github.com/microsoft/TypeScript/issues/58657) and [TypeScript#56279](https://github.com/microsoft/TypeScript/issues/56279).
-- Investigate TypeScript build-mode watch (`tsc --build --watch`) with project references. One watch started for an application also watches the composite projects that application depends on and rebuilds those packages when their source changes. Plain `tsc --watch`, without `--build`, does not.
 - Explore the Pathfinder Second Edition rules for this application, starting from Player Core.
   - [Archives of Nethys](https://2e.aonprd.com/) is the official free rules reference. Start with the [Player's Guide](https://2e.aonprd.com/PlayersGuide.aspx), the [Player Core rules](https://2e.aonprd.com/Rules.aspx), and the [Player Core source list](https://2e.aonprd.com/Sources.aspx?ID=216).
   - [Getting started](https://paizo.com/pathfinder/getstarted) is Paizo's entry point, and the [Player Core product page](https://store.paizo.com/pathfinder-player-core/) is the book those rules come from.
