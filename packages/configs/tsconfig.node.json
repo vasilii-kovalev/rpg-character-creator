@@ -1,9 +1,45 @@
 {
-	// `target` / `lib` match the minimum Node.js version in root `devEngines` (^22.22.2 → ES2023).
+	/*
+		Node tool configs type-check against the lowest runtime allowed by root `devEngines`
+		(currently ^22.22.2 || ^24.15.0 || >=26.0.0, so the floor is 22.22.2). An API that
+		exists only on a newer allowed line waits until that floor includes it.
+
+		`target` is the newest edition whose syntax the floor implements. `lib` includes that
+		edition, then any later finished group in which every declared API exists on the floor.
+
+		A finished group is a yearly `ES20xx` or `ES20xx.*` library. TypeScript names it for the
+		edition that standardized it, which can be years after the engine shipped the API, and a
+		Node.js backport can move an API onto an older line. `ESNext.*` groups stay out: TypeScript
+		adds declarations to them in later releases, so a group that matches the floor today can
+		name an API the floor never receives. Recheck this list when `devEngines` changes, when
+		Node.js backports one of these APIs onto the floor, and when a TypeScript upgrade moves
+		an untyped API into a finished group.
+
+		On the current floor, past ES2024:
+		- ES2025.Iterator — iterator helpers, since Node.js 22.0.0.
+		- ES2025.Collection — Set methods such as `union`, since Node.js 22.0.0.
+
+		On the floor, but untyped. TypeScript 7 exposes `Array.fromAsync` (Node.js 22.0.0) only
+		through `ESNext.Array`.
+
+		Still above the floor:
+		- Node.js 23: ES2025.Intl (`Intl.DurationFormat`), ES2025.Promise (`Promise.try`).
+		- Node.js 24: ES2025.RegExp (`RegExp.escape`), ES2025.Float16 (`Float16Array`,
+			`Math.f16round`), ESNext.Disposable (`using`, `DisposableStack`; Node.js 22's
+			`Symbol.dispose` covers only `fs` and `stream`), ESNext.Error (`Error.isError`),
+			ESNext.SharedMemory (`Atomics.pause`).
+		- Node.js 25: ESNext.TypedArrays (`Uint8Array` base64 and hex conversions).
+		- Node.js 26: ESNext.Collection (`Map.getOrInsert`, `WeakMap.getOrInsert`),
+			ESNext.Date (`Date.toTemporalInstant`), ESNext.Temporal, and ESNext.Intl. The Locale
+			methods in that last group (`getCalendars` and the rest) are methods from Node.js 24;
+			Node.js 22 still exposes them as accessors, and the same file also types Temporal
+			arguments on `Intl.DateTimeFormat`.
+		- ESNext.Decorators (`Symbol.metadata`) has no Node.js release.
+	*/
 	"extends": "./tsconfig.base.json",
 	"compilerOptions": {
-		"target": "es2023",
-		"lib": ["ES2023"],
+		"target": "ES2024",
+		"lib": ["ES2024", "ES2025.Iterator", "ES2025.Collection"],
 		"types": ["node"]
 	},
 	// Not used on its own. Root and `packages/configs/tsconfig.json` extend this and set `include`.
