@@ -16,7 +16,7 @@ Publishing is a local step: `prod:publish` builds the site, and `oneclickpush` p
 
 Pages serves the generated files as they are. It does not rewrite a missing path to `index.html`.
 
-Asset URLs are relative, so the same build works at a domain root and under a project-site prefix. No source file contains a host name or a repository path. The development server still serves that relative layout from `/`.
+Asset URLs are relative, so the same build works at a domain root and under a project-site prefix. The legal notice contains external links. The development server still serves that relative layout from `/`.
 
 GitHub Pages runs Jekyll on a published branch unless a `.nojekyll` file is present. Jekyll would treat the generated site as source and omit names that start with `_` or `.`. `oneclickpush` copies the built directory as it stands, including dotfiles. Adding `.nojekyll` is left to the caller so the step stays explicit ([oneclickpush#1](https://github.com/zerodevx/oneclickpush/issues/1#issuecomment-6366801208)). The build writes that empty file afterward with Node, because `touch` is a POSIX command and Windows does not provide it. Each build clears `site/` first, so the file belongs to the published tree only.
 
@@ -51,7 +51,7 @@ Dexie is the IndexedDB wrapper because the applications need declared tables, in
 
 Applications that store characters construct Dexie in `src/services/db/index.ts`. One `characters` row is one complete character. Nested choices stay on that row and are stored through structured clone. The rules catalog ships with the application. Calculated fields are recomputed from that row and the catalog when the character is loaded.
 
-A real character row includes `schemaVersion`. Opening a row migrates it to the version the application currently writes. Dexie database versions are reserved for index changes or rewrites of every row. Indexes are added only when a screen needs to query them. The example application stores `id` and `name` only.
+A real character row includes `schemaVersion`. Opening a row migrates it to the version the application currently writes. Dexie database versions are reserved for index changes or rewrites of every row. Indexes are added only when a screen needs to query them.
 
 ## Workspace
 
@@ -61,7 +61,8 @@ The repository is an npm workspace: applications under `apps/`, reusable code un
 .
 ├── apps/
 │   ├── dashboard/
-│   └── example/
+│   ├── application-1/
+│   └── application-2/
 ├── packages/
 │   ├── configs/
 │   ├── shared/
@@ -81,8 +82,6 @@ Generated directories such as `site/` and `storybook-static/` are not part of th
 
 Each other `apps/<slug>` directory is one character creator. It owns that game's catalog, character model, rules, routes, UI, and browser database. The directory name is the slug and the URL segment.
 
-`apps/example` proves the workspace. It is not a model for a finished character schema.
-
 `packages/shared` holds generic TypeScript helpers such as id generation. Game catalogs, character rules, React, component styles, and Dexie stay out of it, even when those functions are pure.
 
 `packages/ui` is the shared React component library.
@@ -91,7 +90,7 @@ Each other `apps/<slug>` directory is one character creator. It owns that game's
 
 An application may import either reusable package, and `packages/ui` may import `packages/shared`. Neither package imports an application, and `packages/shared` does not import `packages/ui`.
 
-The dashboard keeps the list of applications in its own source: a title, a description, the slug, and the port used while that application is served on its own. The list is hand-written so the landing page is not coupled to a repository scan. In development the link is `http://localhost:<port>/`; in a production build it is the relative link `<slug>/`.
+The dashboard keeps the list of applications in its own source: a title, the slug, and the port used while that application is served on its own. The list is hand-written so the landing page is not coupled to a repository scan. In development the link is `http://localhost:<port>/`; in a production build it is the relative link `<slug>/`.
 
 Each application is a separate build so one game's code stays out of the others unless it comes from a shared package. A new character creator is another directory under `apps/` with the same shape and a free development port stored on the dashboard entry. The site build already includes every application directory.
 
@@ -101,7 +100,7 @@ Another workspace package is imported by file, as `packages/<name>/src/<path>`. 
 
 A file reaches other modules in its own workspace with a relative import. Importing a module from `packages/shared` adds that file to the application's compilation, and the compiler does not apply `packages/shared`'s config to it. `${configDir}` is the directory of the opened config, not of the imported file, so an alias such as `@/` or `src/`, set to the extending workspace's `src`, means the application's `src` for those shared files too. `baseUrl` used to be a lookup root for bare imports. TypeScript 7 does not implement it, and a `paths` entry used in its place has the same limit. `rootDir` only affects emit layout. The `packages/*` wildcard can also resolve a package to itself; files inside that package do not use that specifier. Relative imports climb directories, so `import/no-relative-parent-imports` is off.
 
-A second `paths` entry for every package `src` lets the first existing file win. The list grows with every package, and two packages that contain the same relative path collide. A distinct prefix per package (`@shared/*`, `@example/*`) is the layout Nx and similar monorepos use. Names do not collide, but each package adds a line, and the prefix is not "the current package."
+A second `paths` entry for every package `src` lets the first existing file win. The list grows with every package, and two packages that contain the same relative path collide. A distinct prefix per package (`@shared/*`, `@ui/*`) is the layout Nx and similar monorepos use. Names do not collide, but each package adds a line, and the prefix is not "the current package."
 
 Project references give each package its own compilation, so a local alias works there. The application lists every dependency under `references`. A wildcard is not supported; [TypeScript#56279](https://github.com/microsoft/TypeScript/issues/56279) asks for one and is open. The handbook behavior is that the importer then loads the referenced project's `.d.ts` output, so the package is compiled ahead of the application. [TypeScript#58657](https://github.com/microsoft/TypeScript/issues/58657) asks the compiler to apply an internal package's own `paths` while typechecking its uncompiled source. That is not implemented.
 

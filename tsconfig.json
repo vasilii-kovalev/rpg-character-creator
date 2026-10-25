@@ -5,7 +5,7 @@
 			"path": "./apps/dashboard"
 		},
 		{
-			"path": "./apps/example"
+			"path": "./apps/pathfinder-second-edition"
 		},
 		{
 			"path": "./packages/configs"

@@ -3,5 +3,16 @@
 	"ignorePaths": ["LICENSE"],
 	"useGitignore": true,
 	"version": "0.2",
-	"words": ["dexie", "linaria", "nojekyll", "oneclickpush", "rumdl", "sonda", "uncompiled", "voidzero"]
+	"words": [
+		"dexie",
+		"kovalev",
+		"linaria",
+		"nojekyll",
+		"oneclickpush",
+		"rumdl",
+		"sonda",
+		"uncompiled",
+		"vasilii",
+		"voidzero"
+	]
 }

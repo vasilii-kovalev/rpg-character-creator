@@ -2,11 +2,9 @@
 
 ## Overview
 
-This repository is for browser-based RPG character creators. The landing page lists the games that are available, and each game has its own application for creating characters and leveling them over time.
+This repository is for browser-based RPG character creators. Each game has its own application for creating a character and leveling that character over time.
 
-The site has two levels. The site dashboard lists the available character-creator applications. Each application then has its own dashboard, which lists the characters created for that game.
-
-The whole site is static and runs in the browser. There is no backend, account system, or cloud synchronization. Characters are stored in the browser that created them, under the origin that served the site, and remain subject to that browser's storage-retention policy.
+## Goals
 
 The working product is important, but the project is also a way to explore three problems:
 
@@ -14,7 +12,24 @@ The working product is important, but the project is also a way to explore three
 - how to present a lot of competing information without overwhelming the player;
 - how to test a system with too many valid combinations to check one by one.
 
-Those goals shape the code. Rules stay with the game they belong to, calculations are kept separate from storage and UI where possible, and the repository supports both component work and several kinds of rules tests.
+## Games
+
+### Pathfinder Second Edition
+
+- [Application](https://vasilii-kovalev.github.io/rpg-character-creator/pathfinder-second-edition/)
+- [Source code](./apps/pathfinder-second-edition)
+
+## Legal
+
+Legal notices are in [`LEGAL.md`](./LEGAL.md).
+
+## How the site works
+
+The landing page lists the games that are available. The site has two levels. The site dashboard lists the available character-creator applications. Each application then has its own dashboard, which lists the characters created for that game.
+
+The whole site is static and runs in the browser. There is no backend, account system, or cloud synchronization. Characters are stored in the browser that created them, under the origin that served the site, and remain subject to that browser's storage-retention policy.
+
+The goals shape the code. Rules stay with the game they belong to, calculations are kept separate from storage and UI where possible, and the repository supports both component work and several kinds of rules tests.
 
 Why the repository is arranged this way is in [`docs/architecture.md`](./docs/architecture.md).
 
@@ -44,7 +59,7 @@ The second command downloads Chromium and Firefox into the repository for Vitest
 
 - `install:browsers` — Download Chromium and Firefox for browser tests into this repository.
 - `dev:dashboard` — Run the site dashboard locally.
-- `dev:example` — Run the example character creator locally.
+- `dev:pathfinder-second-edition` — Run the Pathfinder Second Edition character creator locally.
 - `dev:ui` — Run Storybook for the shared component library.
 - `prod:build` — Build the static site into `site/`.
 - `prod:preview` — Serve the built `site/` locally.
@@ -73,7 +88,3 @@ The workspace recommends these extensions. The same list is in [`.vscode/extensi
 - Stylelint
 - TypeScript 7/TypeScript (Native Preview)
 - vscode-styled-components
-
-## License
-
-See the [LICENSE](./LICENSE) file.

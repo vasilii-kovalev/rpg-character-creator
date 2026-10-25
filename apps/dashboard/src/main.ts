@@ -1,7 +1,6 @@
 import "./styles.css";
 
 interface Application {
-	description: string;
 	port: number;
 	slug: string;
 	title: string;
@@ -10,10 +9,9 @@ interface Application {
 // Hand-written: the dashboard does not scan `apps/`.
 const applications: Array<Application> = [
 	{
-		description: "Reference application used to prove the workspace.",
 		port: 5174,
-		slug: "example",
-		title: "Example",
+		slug: "pathfinder-second-edition",
+		title: "Pathfinder Second Edition",
 	},
 ];
 
@@ -26,7 +24,6 @@ if (list === null) {
 for (const application of applications) {
 	const item = document.createElement("li");
 	const link = document.createElement("a");
-	const description = document.createElement("p");
 
 	link.textContent = application.title;
 
@@ -38,7 +35,6 @@ for (const application of applications) {
 	}
 
 	link.href = href;
-	description.textContent = application.description;
-	item.append(link, description);
+	item.append(link);
 	list.append(item);
 }
