@@ -18,6 +18,7 @@ The working product is important, but the project is also a way to explore three
 
 - [Application](https://vasilii-kovalev.github.io/rpg-character-creator/pathfinder-second-edition/)
 - [Source code](./apps/pathfinder-second-edition)
+- Status: 🚧 Under construction
 
 ## Legal
 
