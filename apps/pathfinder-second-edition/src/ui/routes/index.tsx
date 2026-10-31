@@ -2,7 +2,7 @@ import { createHashRouter, type LazyRouteFunction, redirect, type RouteObject } 
 
 import { generateId } from "packages/shared/src/utilities/generate-id";
 
-import { db } from "../services/db";
+import { db } from "../../services/db";
 import { PageFallback } from "./page-fallback";
 
 type PageModule = Awaited<ReturnType<LazyRouteFunction<RouteObject>>>;

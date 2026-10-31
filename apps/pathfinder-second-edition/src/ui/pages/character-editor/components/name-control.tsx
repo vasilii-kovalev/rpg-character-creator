@@ -1,6 +1,6 @@
 import { type ReactNode, useState } from "react";
 
-import { type Character, db } from "../../../services/db";
+import { type Character, db } from "../../../../services/db";
 
 interface NameControlProps {
 	character: Character;

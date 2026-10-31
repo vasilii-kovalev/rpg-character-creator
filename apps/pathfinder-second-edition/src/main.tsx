@@ -4,8 +4,8 @@ import { RouterProvider } from "react-router";
 
 import { Button } from "packages/ui/src/button/button";
 
-import { router } from "./routes";
-import "./styles/global.css";
+import { router } from "./ui/routes";
+import "./ui/styles/global.css";
 
 const root = document.querySelector("#root");
 
