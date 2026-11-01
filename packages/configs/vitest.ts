@@ -3,7 +3,7 @@ import { type TestProjectInlineConfiguration } from "vite-plus";
 import { type InlineConfig } from "vite-plus/test/node";
 
 // `*.test.ts` runs in Node; `*.test.tsx` runs in Vitest browser mode.
-const createNodeTestConfig = (): InlineConfig => {
+export const createNodeTestConfig = (): InlineConfig => {
 	return {
 		globals: true,
 		include: ["src/**/*.test.ts"],
@@ -34,7 +34,7 @@ const createBrowserTestConfig = (): InlineConfig => {
 };
 
 // Nested projects inherit `root`, plugins, `define`, and `resolve` from the workspace config that declares them.
-const createNodeAndBrowserTestConfig = (): InlineConfig => {
+export const createNodeAndBrowserTestConfig = (): InlineConfig => {
 	const projects: Array<TestProjectInlineConfiguration> = [
 		{
 			test: {
@@ -54,5 +54,3 @@ const createNodeAndBrowserTestConfig = (): InlineConfig => {
 		projects,
 	};
 };
-
-export { createNodeAndBrowserTestConfig, createNodeTestConfig };

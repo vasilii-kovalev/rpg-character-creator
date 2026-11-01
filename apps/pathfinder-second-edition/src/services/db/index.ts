@@ -1,6 +1,6 @@
 import { Dexie, type EntityTable } from "dexie";
 
-interface Character {
+export interface Character {
 	id: string;
 	name: string;
 }
@@ -20,6 +20,4 @@ class CharacterDatabase extends Dexie {
 	}
 }
 
-const db = new CharacterDatabase();
-
-export { type Character, db };
+export const db = new CharacterDatabase();

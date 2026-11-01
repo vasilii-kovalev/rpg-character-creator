@@ -4,7 +4,7 @@ import { Link, type LoaderFunctionArgs, useLoaderData } from "react-router";
 import { type Character, db } from "../../../services/db";
 import { NameControl } from "./components/name-control";
 
-const loader = async ({ params }: LoaderFunctionArgs): Promise<Character> => {
+export const loader = async ({ params }: LoaderFunctionArgs): Promise<Character> => {
 	const character = await db.characters.get(params.id ?? "");
 
 	if (typeof character === "undefined") {
@@ -14,7 +14,7 @@ const loader = async ({ params }: LoaderFunctionArgs): Promise<Character> => {
 	return character;
 };
 
-const Component = (): ReactNode => {
+export const Component = (): ReactNode => {
 	const character = useLoaderData<typeof loader>();
 
 	return (
@@ -27,5 +27,3 @@ const Component = (): ReactNode => {
 		</main>
 	);
 };
-
-export { Component, loader };

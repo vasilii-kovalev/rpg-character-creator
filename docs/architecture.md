@@ -130,6 +130,16 @@ That extension cannot be required on every import. With `moduleResolution` set t
 
 Relative imports are the simplest approach that keeps packages as source, keeps a single `packages/*` entry, and does not change when a workspace starts importing another package. They do not write an extension, so that rule is unnecessary.
 
+### Exports
+
+Local named symbols are exported at their declarations, as in `export const`, `export type`, and `export interface`. A single export list would show a module's public API in one place, but it would also separate each export from its definition and repeat the names. Declaration-site exports keep visibility beside the definition and declarations in their natural order, without a second list to sort. Both forms expose the same named bindings.
+
+Oxfmt sorts import statements, while Oxlint sorts the names within each import case-insensitively and prefers inline `type` markers for named imports. Declaration-site exports have no equivalent name list, and sorting the declarations themselves can change initialization order. An export list remains useful for aliases and re-exports, but its names are not required to be sorted.
+
+Type-only re-exports keep a `type` marker so their bindings are distinguishable from runtime exports. It may mark the whole declaration (`export type { X } from "./module"`) or individual names (`export { type X } from "./module"`). Oxlint's type-export rule uses inline markers when fixing mixed type/value lists, but its import-style rule does not enforce that placement on exports. Sorting the occasional export list would add a plugin, while enforcing inline type specifiers everywhere would need a custom rule. The small gain from matching imports is not worth the extra dependency and maintenance.
+
+Tool configs and Storybook metadata use default exports where their consumers require them.
+
 ## Toolchain
 
 ### Node.js and npm

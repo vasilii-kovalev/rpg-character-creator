@@ -2,7 +2,7 @@ import { type ComponentProps, type ReactNode } from "react";
 
 import { button } from "./button.css";
 
-const Button = (props: ComponentProps<"button">): ReactNode => {
+export const Button = (props: ComponentProps<"button">): ReactNode => {
 	const { children, type = "button", ...rest } = props;
 
 	return (
@@ -12,5 +12,3 @@ const Button = (props: ComponentProps<"button">): ReactNode => {
 		</button>
 	);
 };
-
-export { Button };

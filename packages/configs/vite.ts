@@ -55,7 +55,7 @@ interface SiteConfigParams {
 	isDashboard?: boolean;
 }
 
-const createSiteConfig = ({ configModuleUrl, devPort, isDashboard = false }: SiteConfigParams): UserConfig => {
+export const createSiteConfig = ({ configModuleUrl, devPort, isDashboard = false }: SiteConfigParams): UserConfig => {
 	const slug = basename(fileURLToPath(new URL(".", configModuleUrl)));
 	const shared: UserConfig = {
 		// GitHub Pages needs relative asset URLs; Vite serves a relative `base` from `/` outside builds.
@@ -101,13 +101,13 @@ const createSiteConfig = ({ configModuleUrl, devPort, isDashboard = false }: Sit
 };
 
 // `packages/shared`: Node tests only; no React, Linaria, or path-alias plugins.
-const createNodeWorkspaceConfig = (): UserConfig => {
+export const createNodeWorkspaceConfig = (): UserConfig => {
 	return {
 		test: createNodeTestConfig(),
 	};
 };
 
-const createUiWorkspaceConfig = (): UserConfig => {
+export const createUiWorkspaceConfig = (): UserConfig => {
 	return {
 		plugins: createLinariaReactPlugins(),
 		resolve: {
@@ -116,5 +116,3 @@ const createUiWorkspaceConfig = (): UserConfig => {
 		test: createNodeAndBrowserTestConfig(),
 	};
 };
-
-export { createNodeWorkspaceConfig, createSiteConfig, createUiWorkspaceConfig };

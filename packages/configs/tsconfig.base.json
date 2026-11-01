@@ -4,8 +4,7 @@
 		"skipLibCheck": true,
 		"moduleResolution": "bundler",
 		"allowImportingTsExtensions": true,
-		// Interferes with the linter config for inline `type` on exports.
-		"verbatimModuleSyntax": false,
+		"verbatimModuleSyntax": true,
 		"moduleDetection": "force",
 		"noEmit": true,
 		"jsx": "react-jsx",

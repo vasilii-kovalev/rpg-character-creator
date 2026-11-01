@@ -6,7 +6,7 @@ interface NameControlProps {
 	character: Character;
 }
 
-const NameControl = ({ character }: NameControlProps): ReactNode => {
+export const NameControl = ({ character }: NameControlProps): ReactNode => {
 	const [name, setName] = useState(character.name);
 
 	return (
@@ -27,5 +27,3 @@ const NameControl = ({ character }: NameControlProps): ReactNode => {
 		</label>
 	);
 };
-
-export { NameControl };

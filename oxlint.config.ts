@@ -207,8 +207,12 @@ const config = defineConfig({
 				ignoreDeclarationSort: true,
 			},
 		],
-		// `type` is placed on the name. Every imported or exported symbol uses that same marking.
+		// An imported type is marked on its name, alongside any value imports.
 		"import/consistent-type-specifier-style": ["error", "prefer-inline"],
+		// A declaration can be exported where it is defined, not only at the end of the file.
+		"import/exports-last": "off",
+		// Multiple declarations can each be exported where they are defined.
+		"import/group-exports": "off",
 		// Symbols are imported from the module that defines them, so a count of imports is not a useful limit.
 		"import/max-dependencies": "off",
 		// A named export keeps the same symbol name at the import and the export.
@@ -231,7 +235,7 @@ const config = defineConfig({
 				default: "generic",
 			},
 		],
-		// An exported type keeps the inline `type` required by `import/consistent-type-specifier-style`.
+		// Type-only exports stay marked; mixed exports are fixed with inline type specifiers.
 		"typescript/consistent-type-exports": [
 			"error",
 			{

@@ -4,13 +4,13 @@ import { type ActionFunctionArgs, Form, Link, useLoaderData } from "react-router
 
 import { type Character, db } from "../../../services/db";
 
-const loader = async (): Promise<Array<Character>> => {
+export const loader = async (): Promise<Array<Character>> => {
 	const characters = await db.characters.toArray();
 
 	return characters;
 };
 
-const action = async ({ request }: ActionFunctionArgs): Promise<void> => {
+export const action = async ({ request }: ActionFunctionArgs): Promise<void> => {
 	const formData = await request.formData();
 	const id = formData.get("id");
 
@@ -21,7 +21,7 @@ const action = async ({ request }: ActionFunctionArgs): Promise<void> => {
 	await db.characters.delete(id);
 };
 
-const Component = (): ReactNode => {
+export const Component = (): ReactNode => {
 	const characters = useLoaderData<typeof loader>();
 
 	return (
@@ -98,5 +98,3 @@ const Component = (): ReactNode => {
 		</main>
 	);
 };
-
-export { action, Component, loader };
