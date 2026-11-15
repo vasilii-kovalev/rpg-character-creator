@@ -1,0 +1,12 @@
+export const REQUIREMENT_GROUP_TYPE = {
+	ALL: "ALL",
+	ANY: "ANY",
+} as const;
+
+export const REQUIREMENT_TYPE = {
+	...REQUIREMENT_GROUP_TYPE,
+	ABILITY: "ABILITY",
+	AGE: "AGE",
+	FEAT: "FEAT",
+	SKILL_PROFICIENCY_LEVEL: "SKILL_PROFICIENCY_LEVEL",
+} as const;

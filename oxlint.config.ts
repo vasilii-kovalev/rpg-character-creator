@@ -91,7 +91,7 @@ const config = defineConfig({
 		},
 		{
 			// This file is the list of lint decisions, so its length is that list.
-			files: ["oxlint.config.ts"],
+			files: ["oxlint.config.ts", "**/models/**/*.ts"],
 			rules: {
 				"eslint/max-lines": "off",
 			},

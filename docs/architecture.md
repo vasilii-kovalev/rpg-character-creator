@@ -208,12 +208,12 @@ Storybook is the workbench for `packages/ui`. `@storybook/react-vite` uses the s
 
 The interesting testing problem is a ruleset with too many valid characters to check one by one. The current direction uses several small layers instead of exhaustive listing:
 
-| Kind                 | Purpose                                                                                       |
-| -------------------- | --------------------------------------------------------------------------------------------- |
-| Unit tests           | Check one rule, prerequisite, helper, or derived value at a time                              |
-| Property-based tests | Generate valid characters and check invariants such as prerequisites, uniqueness, and budgets |
-| Golden tests         | Compare a small set of hand-built characters with their complete expected results             |
-| Storybook stories    | Provide the first visual check for shared UI components                                       |
+| Kind                 | Purpose                                                                                      |
+| -------------------- | -------------------------------------------------------------------------------------------- |
+| Unit tests           | Check one rule, requirement, helper, or derived value at a time                              |
+| Property-based tests | Generate valid characters and check invariants such as requirements, uniqueness, and budgets |
+| Golden tests         | Compare a small set of hand-built characters with their complete expected results            |
+| Storybook stories    | Provide the first visual check for shared UI components                                      |
 
 Rule tests call those functions directly and do not open Dexie. Generic helpers are tested in `packages/shared`.
 

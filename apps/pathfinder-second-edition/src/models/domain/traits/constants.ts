@@ -1,0 +1,43 @@
+const ANCESTRY_TRAIT_ID = {
+	DWARF: "DWARF",
+	ELF: "ELF",
+} as const;
+
+const CREATURE_TYPE = {
+	HUMANOID: "HUMANOID",
+} as const;
+
+const ELEMENTAL_TRAIT_ID = {
+	EARTH: "EARTH",
+} as const;
+
+const MECHANICS_TRAIT_ID = {
+	CONCENTRATE: "CONCENTRATE",
+	POLYMORPH: "POLYMORPH",
+} as const;
+
+const MODIFIER_TRAIT_ID = {
+	SANCTIFIED: "SANCTIFIED",
+} as const;
+
+const RARITY_TRAIT_ID = {
+	COMMON: "COMMON",
+	RARE: "RARE",
+	UNCOMMON: "UNCOMMON",
+	UNIQUE: "UNIQUE",
+} as const;
+
+export const SANCTIFICATION_TRAIT_ID = {
+	HOLY: "HOLY",
+	UNHOLY: "UNHOLY",
+} as const;
+
+export const TRAIT_ID = {
+	...ANCESTRY_TRAIT_ID,
+	...CREATURE_TYPE,
+	...ELEMENTAL_TRAIT_ID,
+	...MECHANICS_TRAIT_ID,
+	...MODIFIER_TRAIT_ID,
+	...RARITY_TRAIT_ID,
+	...SANCTIFICATION_TRAIT_ID,
+} as const;
