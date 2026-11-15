@@ -1,5 +1,21 @@
 # RPG character creator
 
+## Project discontinued
+
+This repository is discontinued and remains an unfinished record of the experiment.
+
+The intended product was a static, browser-based companion for tabletop RPGs, starting with Pathfinder Second Edition Remaster. It was meant to provide character creation and leveling, a calculated character sheet, a spell book, equipment and custom items, virtual dice rolls, and condition tracking with time advancement and recovery rolls. Role-playing, movement, measurements, and the wider game world would remain at the table.
+
+The goal was to automate the mechanics relevant to the character, not just display them as reference text or require players to remember which modifiers apply. That goal conflicted with the intended scope:
+
+- **Rules cross the app/table boundary.** Feats, items, spells, and conditions can depend on targets, positions, terrain, actions, and other circumstances outside a character sheet. These dependencies cross combat, exploration, and other parts of play, so they cannot be neatly separated into character-only and table-only rules.
+- **Effects interact in different ways.** For example, frightened and sickened both have values but recover differently, and Dwarven Doughtiness changes how frightened decreases at the end of a turn. Modeling effects and their overrides requires interpreting rules written for people and encoding an increasing number of interactions and exceptions.
+- **Missing context must come from somewhere.** To apply such rules automatically, the app would need to track the relevant encounter state or ask players to supply it, sometimes repeatedly. Manually adding conditions or switching equipment was acceptable, but repeatedly updating terrain or situational modifiers would create the micromanagement the app was meant to avoid. Leaving effects as text or relying on manual modifiers would instead leave players to handle important mechanics themselves.
+
+A character builder or partially automated sheet can still be useful, but that tradeoff does not provide the consistent automation intended here. Switching to another tabletop system would not necessarily resolve the mismatch, since its rules may also rely on a human-managed world and interpretation.
+
+The intended direction is instead to create an original ruleset from scratch, with structured, executable mechanics rather than rules that require interpreting free text, and build a game around the state those mechanics need. This shifts the work toward game design, implementation, and balance.
+
 ## Overview
 
 This repository is for browser-based RPG character creators. Each game has its own application for creating a character and leveling that character over time.
@@ -18,7 +34,7 @@ The working product is important, but the project is also a way to explore three
 
 - [Application](https://vasilii-kovalev.github.io/rpg-character-creator/pathfinder-second-edition/)
 - [Source code](./apps/pathfinder-second-edition)
-- Status: 🚧 Under construction
+- Status: Discontinued (unfinished)
 
 ## Legal
 
